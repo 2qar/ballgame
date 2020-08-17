@@ -13,7 +13,7 @@ func _ready():
 	collision_mask = still_mask
 
 remotesync func hit(dir: Vector2):
-	set_axis_velocity(dir * hit_velocity)
+	linear_velocity = dir * hit_velocity
 	$trail.process_material.direction = Vector3(dir.x, dir.y, 0)
 	collision_layer = moving_mask
 	collision_mask = moving_mask
@@ -38,5 +38,8 @@ func reset_position(state: Physics2DDirectBodyState):
 	reset = false
 
 func _on_ball_body_entered(body):
-	if body.name != "goal":
+	if body.name == "goal":
+		# TODO: emit a signal that the level's root node listens for
+		queue_free()
+	else:
 		reset = true
