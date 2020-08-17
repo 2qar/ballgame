@@ -4,7 +4,6 @@ export(PoolColorArray) var colors
 
 func _ready():
 	$lobby.connect("start_game", self, "_on_start_game")
-	$ball.connect("die", self, "_on_ball_die")
 
 func remove_color(c: Color):
 	for i in range(colors.size()):
@@ -40,7 +39,3 @@ remotesync func spawn_players(players):
 		player.translate(Vector2(x, 64))
 		add_child(player)
 		x += 128
-
-func _on_ball_die():
-	var ball = preload("res://ball.tscn").instance()
-	add_child(ball)

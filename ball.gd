@@ -8,8 +8,6 @@ export(int, LAYERS_2D_PHYSICS) var moving_mask
 onready var initial_pos = position
 var reset = false
 
-signal die
-
 func _ready():
 	collision_layer = still_mask
 	collision_mask = still_mask
@@ -42,5 +40,3 @@ func reset_position(state: Physics2DDirectBodyState):
 func _on_ball_body_entered(body):
 	if body.name != "goal":
 		reset = true
-		emit_signal("die")
-		queue_free()
