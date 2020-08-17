@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://world.gd" type="Script" id=1]
+[ext_resource path="res://lobby.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ball.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="world" type="Node2D"]
+script = ExtResource( 1 )
+colors = PoolColorArray( 1, 0.313726, 0.313726, 1, 0.988235, 0.372549, 0.984314, 1, 0.568627, 0.988235, 0.372549, 1, 0.988235, 0.686275, 0.372549, 1 )
+
+[node name="lobby" parent="." instance=ExtResource( 2 )]
+
+[node name="ball" parent="." instance=ExtResource( 3 )]
+position = Vector2( 327.005, 312.718 )
+
+[node name="StaticBody" type="StaticBody2D" parent="."]
+position = Vector2( 449.162, 314.98 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody"]
+shape = SubResource( 1 )

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://player.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 24, 32 )
+
+[node name="player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="nametag" type="Label" parent="."]
+margin_left = -20.3563
+margin_top = -48.3879
+margin_right = 19.6437
+margin_bottom = -34.3879
+text = "name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hammer" type="Node2D" parent="."]
+
+[node name="area" type="Area2D" parent="hammer"]
+modulate = Color( 0.556863, 0, 0, 1 )
+position = Vector2( 56, 0 )
+collision_layer = 2
+collision_mask = 2147483650
+
+[node name="collider" type="CollisionShape2D" parent="hammer/area"]
+shape = SubResource( 2 )
