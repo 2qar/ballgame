@@ -21,7 +21,6 @@ func _on_start_game(players):
 			"color": color,
 			"name": players[id]
 		}
-	print(players_with_colors)
 	rpc("spawn_players", players_with_colors)
 
 remotesync func spawn_players(players):

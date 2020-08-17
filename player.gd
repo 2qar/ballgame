@@ -6,10 +6,6 @@ const move_speed = 320
 
 var hammer_rot = Vector2()
 
-func _ready():
-	$hammer/area.connect("body_entered", self, "_on_hammer_body_entered")
-	$hammer/area.connect("body_exited", self, "_on_hammer_body_exited")
-
 func set_color(color: Color):
 	$sprite.modulate = color
 
@@ -24,7 +20,6 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("hit"):
 			for body in $hammer/area.get_overlapping_bodies():
 				if body.has_method("hit"):
-					print("bro?")
 					body.rpc("hit", hammer_rot)
 		
 		var movement = Vector2()
@@ -48,11 +43,3 @@ func _physics_process(delta):
 	else:
 		position = remote_pos
 		$hammer.rotation = remote_hammer_rot
-
-func _on_hammer_body_entered(body):
-	print(str(body) + " entered")
-	pass
-
-func _on_hammer_body_exited(body):
-	print(str(body) + " exited")
-	pass
