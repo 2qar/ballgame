@@ -1,6 +1,8 @@
 # TODO: switch to KinematicBody2D, idiot
 extends RigidBody2D
 
+signal goal_hit(pos)
+
 export var hit_velocity : int
 export(int, LAYERS_2D_PHYSICS) var still_mask
 export(int, LAYERS_2D_PHYSICS) var moving_mask
@@ -39,7 +41,6 @@ func reset_position(state: Physics2DDirectBodyState):
 
 func _on_ball_body_entered(body):
 	if body.name == "goal":
-		# TODO: emit a signal that the level's root node listens for
-		queue_free()
+		emit_signal("goal_hit", position)
 	else:
 		reset = true
