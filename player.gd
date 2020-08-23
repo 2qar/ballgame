@@ -6,6 +6,8 @@ const move_speed = 320
 
 var hammer_rot = Vector2()
 
+var bonked = false
+
 func set_color(color: Color):
 	$sprite.modulate = color
 
@@ -15,12 +17,28 @@ func set_nametag(name: String):
 func remove_nametag():
 	$nametag.queue_free()
 
+func hit_overlapping_things():
+	var nodes = $hammer/area.get_overlapping_areas()
+	nodes += $hammer/area.get_overlapping_bodies()
+	for node in nodes:
+		if node.has_method("hit"):
+			node.rpc("hit", hammer_rot)
+
+remotesync func hit(rot: Vector2):
+	if bonked:
+		return
+	set_physics_process(false)
+	bonked = true
+	$sprite.scale.y = 0.5
+	yield(get_tree().create_timer(1.0), "timeout")
+	$sprite.scale.y = 1
+	bonked = false
+	set_physics_process(true)
+
 func _physics_process(delta):
 	if is_network_master():
 		if Input.is_action_just_pressed("hit"):
-			for body in $hammer/area.get_overlapping_bodies():
-				if body.has_method("hit"):
-					body.rpc("hit", hammer_rot)
+			hit_overlapping_things()
 		
 		var movement = Vector2()
 		if Input.is_action_pressed("left"):
