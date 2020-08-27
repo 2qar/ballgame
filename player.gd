@@ -58,6 +58,13 @@ func _physics_process(delta):
 		rset("remote_pos", position)
 		$hammer.rotation = hammer_rot.angle()
 		rset("remote_hammer_rot", $hammer.rotation)
+		
+		# TODO: sync this over the network
+		# TODO: flip sprite when moving left or right
+		if movement.length() > 0:
+			$sprite.animation = "walk"
+		else:
+			$sprite.animation = "idle"
 	else:
 		position = remote_pos
 		$hammer.rotation = remote_hammer_rot
